@@ -1,13 +1,16 @@
 var system = require('system');
 
-if (system.args.length < 3) {
-    console.log("Missing arguments.");
-    phantom.exit();
+if (system.args.length == 3) {
+      console.log("NOTE: Running in single site mode, snapping only "+system.args[2]);
+} else if (system.args.length == 2) {
+      console.log("NOTE: Running in Nginx mode, snapping urls in Host header");
+} else {
+      console.log("Missing arguments.");
+      phantom.exit();
 }
 
 var server = require('webserver').create();
 var port = parseInt(system.args[1]);
-var urlPrefix = system.args[2];
 
 function queryStringToMap(queryString) {
     if (!queryString) { return ''; }
@@ -45,6 +48,8 @@ var renderHtml = function(url, cb) {
 };
 
 server.listen(port, function (request, response) {
+    var host = request.headers.Host;
+    var urlPrefix = (typeof system.args[2] === 'undefined') ? 'http://' + host : system.args[2];
     var qLoc = request.url.indexOf('?');
     var query = qLoc !== -1 ?
       request.url.slice(qLoc, request.url.length) :
