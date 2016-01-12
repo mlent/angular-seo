@@ -49,7 +49,7 @@ var renderHtml = function(url, cb) {
 
 server.listen(port, function (request, response) {
     var host = request.headers.Host;
-    var urlPrefix = (typeof system.args[2] === 'undefined') ? 'http://' + host : system.args[2];
+    var urlPrefix = (typeof system.args[2] === 'undefined') ? 'https://' + host : system.args[2];
     var qLoc = request.url.indexOf('?');
     var query = qLoc !== -1 ?
       request.url.slice(qLoc, request.url.length) :
