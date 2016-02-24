@@ -4,6 +4,6 @@
   "main": "./angular-seo.js",
   "ignore": [],
   "dependencies": {
-    "angular": "1.3.13"
+    "angular": ">=1.3.13"
   }
 }
